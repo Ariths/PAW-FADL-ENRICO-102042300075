@@ -1,42 +1,42 @@
 <?php
-// **********************  1  **************************  
-// Inisialisasi variabel untuk menyimpan nilai input dan error
+$nama = $email = $nim = $jurusan = $fakultas = "";
+$namaErr = $emailErr = $nimErr = $jurusanErr = $fakultasErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // **********************  2  **************************  
-    // - Tangkap nilai nama yang ada pada form HTML (Lihat Task 7)
-    // - Validasi agar nama tidak boleh kosong
-    // - Validasi agar nama hanya berupa abjad (Hint : gunakan fungsi preg_match (atau fungsi lainnya))
-    // silakan taruh kode kalian di bawah
+    // Validasi Nama
+    $nama = $_POST["nama"];
+    if (empty($nama)) {
+        $namaErr = "Nama wajib diisi";
+    }
 
+    // Validasi Email
+    $email = $_POST["email"];
+    if (empty($email)) {
+        $emailErr = "Email wajib diisi";
+    } elseif (htmlspecialchars($email)) {
+        $emailErr = "Email tidak valid";
+    }
 
-    // **********************  3  **************************  
-    // - Tangkap nilai email yang ada pada form HTML (Lihat Task 7)
-    // - Memeriksa apakah email kosong
-    // - Memeriksa apakah format email valid (Hint : gunakan fungsi filter_var)
-    // silakan taruh kode kalian di bawah
- 
+    // Validasi Nomor Telepon
+    $nim = $_POST["nim"];
+    if (empty($nim)) {
+        $nimErr = "Nim wajib diisi";
+    } elseif (!ctype_digit($nim)) {
+        $nimErr = "Nim harus berupa angka";
+    }
 
-    // **********************  4  **************************  
-    // - Tangkap nilai NIM yang ada pada form HTML (Lihat Task 7)
-    // - Pastikan NIM terisi dan berformat angka
-    // - silakan taruh kode kalian di bawah
-   
+    // Validasi Alamat
+    $jurusan = $_POST["jurusan"];
+    if (empty($jurusan)) {
+        $jurusanErr = "Jurusan wajib diisi";
+    }
 
-    // **********************  5  **************************  
-    // - Tangkap nilai jurusan yang ada pada form HTML (Lihat Task 7)
-    // - Validasi agar jurusan tidak boleh kosong
-    // - Validasi agar jurusan hanya berupa abjad (Hint : gunakan fungsi preg_match (atau fungsi lainnya))
-    // silakan taruh kode kalian di bawah
- 
-
-    // **********************  6  **************************  
-    // - Tangkap nilai fakultas yang ada pada form HTML (Lihat Task 7)
-    // - Validasi agar fakultas tidak boleh kosong
-    // - Validasi agar fakultas hanya berupa abjad (Hint : gunakan fungsi preg_match (atau fungsi lainnya))
-    // silakan taruh kode kalian di bawah
-   
-}
+    // Menyimpan pilihan mobil tanpa validasi khusus
+    $fakultas = $_POST["fakultas"];
+    if (empty($fakultas)) {
+        $fakultasErr = "Fakultas wajib diisi";
+    }   
+    }
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container">
-        <img src="logo.png" alt="Logo" class="logo">
         <h2>Formulir Pendaftaran Mahasiswa Baru</h2>
 
         <?php if ($_SERVER["REQUEST_METHOD"] == "POST") { ?>
@@ -64,59 +63,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php } ?>
         <?php } ?>
 
-        <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-            <!-- **********************  7  ************************** -->
-            <!-- Tambahkan value di tiap form-group/kolom untuk menampilkan kembali data di form setelah submit (retaining input) -->
-            <!-- Hint : value pada input form harus berisi variabel yang menyimpan data input -->
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="form-group">
-            <label for="nama">Nama</label>
-            <input type="text" id="nama" name="nama" >
-            <span class="error"><?php echo $namaErr ? "* $namaErr" : ""; ?></span>
+                <label for="nama">Nama</label>
+                <input type="text" id="nama" name="nama" value="<?php echo $nama; ?>">
+                <span class="error"><?php echo $namaErr ? "* $namaErr" : ""; ?></span>
             </div>
 
             <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" name="email" >
-            <span class="error"><?php echo $emailErr ? "* $emailErr" : ""; ?></span>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" value="<?php echo $email; ?>">
+                <span class="error"><?php echo $emailErr ? "* $emailErr" : ""; ?></span>
             </div>
 
             <div class="form-group">
-            <label for="nim">NIM</label>
-            <input type="text" id="nim" name="nim" >
-            <span class="error"><?php echo $nimErr ? "* $nimErr" : ""; ?></span>
+                <label for="nim">NIM</label>
+                <input type="text" id="nim" name="nim" value="<?php echo $nim; ?>">
+                <span class="error"><?php echo $nimErr ? "* $nimErr" : ""; ?></span>
             </div>
 
             <div class="form-group">
-            <label for="jurusan">Jurusan</label>
-            <input type="text" id="jurusan" name="jurusan" >
-            <span class="error"><?php echo $jurusanErr ? "* $jurusanErr" : ""; ?></span>
+                <label for="jurusan">Jurusan</label>
+                <input type="text" id="jurusan" name="jurusan" value="<?php echo $jurusan; ?>">
+                <span class="error"><?php echo $jurusanErr ? "* $jurusanErr" : ""; ?></span>
             </div>
 
             <div class="form-group">
-            <label for="fakultas">Fakultas</label>
-            <input type="text" id="fakultas" name="fakultas" >
-            <span class="error"><?php echo $fakultasErr ? "* $fakultasErr" : ""; ?></span>
+                <label for="fakultas">Fakultas</label>
+                <input type="text" id="fakultas" name="fakultas" value="<?php echo $fakultas; ?>">
+                <span class="error"><?php echo $fakultasErr ? "* $fakultasErr" : ""; ?></span>
             </div>
 
             <div class="button-container">
-            <button type="submit">Daftar</button>
+                <button type="submit">Daftar</button>
             </div>
         </form>
-    </div>
 
-    <!-- **********************  8  ************************** -->
-    <!-- Panggil variabel yang berisi pesan error (Hint : gunakan if dan metode post) -->
-    <?php { ?>
-
-    <div class="container">
-        <h3>Data Pendaftaran</h3>
-        <div class="table-container">
-    <!-- **********************  9  ************************** -->
-    <!-- Tampilkan data pendaftaran dalam bentuk tabel yang baru saja diinput -->
+        <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && empty($namaErr) && empty($emailErr) && empty($nimErr) && empty($jurusanErr) && empty($fakultasErr)) { ?>
+        <div class="container">
+            <h3>Data Pendaftaran</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>NIM</th>
+                            <th>Jurusan</th>
+                            <th>Fakultas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?php echo $nama; ?></td>
+                            <td><?php echo $email; ?></td>
+                            <td><?php echo $nim; ?></td>
+                            <td><?php echo $jurusan; ?></td>
+                            <td><?php echo $fakultas; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <?php } ?>
     </div>
-    <?php } ?>
 </body>
 </html>
-
-
