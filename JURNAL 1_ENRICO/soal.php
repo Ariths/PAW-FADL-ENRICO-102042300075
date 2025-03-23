@@ -13,8 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama = $_POST["nama"];
     if (empty($nama)) {
         $namaErr = "Nama wajib diisi";
-    } elseif (preg_match($nama)){
-        $namaErr = "Nama hanya boleh berupa abjad";
+    } elseif (!preg_match("/^[a-zA-Z ]*$/", $nama)) {
+        $namaErr = "Nama hanya boleh berisi huruf dan spasi";
     }
 
     // **********************  3  **************************  
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     if (empty($email)) {
         $emailErr = "Email wajib diisi";
-    } elseif (filter_var($email)) {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailErr = "Email tidak valid";
     }
 
@@ -35,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // - silakan taruh kode kalian di bawah
     $nim = $_POST["nim"];
     if (empty($nim)) {
-        $nimErr = "Nim wajib diisi";
+        $nimErr = "NIM wajib diisi";
     } elseif (!ctype_digit($nim)) {
-        $nimErr = "Nim harus berupa angka";
+        $nimErr = "NIM harus berupa angka";
     }
 
     // **********************  5  **************************  
@@ -48,8 +48,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jurusan = $_POST["jurusan"];
     if (empty($jurusan)) {
         $jurusanErr = "Jurusan wajib diisi";
-    } elseif (preg_match($jurusan)){
-        $jurusanErr = "Jurusan hanya berupa abjad";
+    } elseif (!preg_match("/^[a-zA-Z ]*$/", $jurusan)) {
+        $jurusanErr = "Jurusan hanya boleh berisi huruf dan spasi";
     }
 
     // **********************  6  **************************  
@@ -60,10 +60,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fakultas = $_POST["fakultas"];
     if (empty($fakultas)) {
         $fakultasErr = "Fakultas wajib diisi";
-    } elseif (preg_match($fakultas)){
-        $fakultasErr = "Fakultas tidak valid";
+    } elseif (!preg_match("/^[a-zA-Z ]*$/", $fakultas)) {
+        $fakultasErr = "Fakultas hanya boleh berisi huruf dan spasi";
     }
-    }
+}
 ?>
 
 <!DOCTYPE html>
