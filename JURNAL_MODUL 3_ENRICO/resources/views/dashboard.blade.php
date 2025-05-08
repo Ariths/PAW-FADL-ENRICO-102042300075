@@ -24,8 +24,9 @@
                         </div>
                         <!-- ==================3================== -->
                         <!-- Tambahkan tombol 'Lihat Profil' -->      
-                        <a href="{{ url('/profil') }}" class="btn btn-primary px-4 py-2">
-                        <i class="bi bi-person-fill me-2"></i> Lihat Profil              
+                        <a href="{{ route('profil') }}" class="btn btn-outline-primary btn-sm px-3 py-1 d-flex align-items-center gap-2 mt-2 mt-md-0 me-4">
+                        Lihat Profil
+                        </a>             
                     </div>
                 </div>
             </divsz>
