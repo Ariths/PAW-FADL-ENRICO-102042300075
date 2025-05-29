@@ -76,7 +76,7 @@ class AuthController extends Controller
 
     return response()->json([
         'message' => 'Logout berhasil, token udah dihapus',
-        'data' => null  // bisa isi apapun, supaya assertion 'data' valid
+        'data' => null 
     ]);
 }
 }

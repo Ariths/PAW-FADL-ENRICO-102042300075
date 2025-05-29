@@ -29,20 +29,21 @@ class MahasiswaController extends Controller
     //TODO ( Praktikan Nomor Urut 2 )
     // Tambahkan fungsi store yang akan menyimpan data Mahasiswa baru
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required|string',
-            'nim' => 'required|string|unique:mahasiswas,nim',
-            'jurusan' => 'required|string',
-            'fakultas' => 'required|string',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required|string',
+        'nim' => 'required|string|unique:mahasiswas,nim',
+        'jurusan' => 'required|string',
+        'fakultas' => 'required|string',
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
 
-        $mahasiswa = Mahasiswa::create($request->all());
-        return new MahasiswaResource($mahasiswa);
+    $mahasiswa = Mahasiswa::create($request->all());
+
+    return new MahasiswaResource(true, 'Data berhasil diambil', $mahasiswa);
     }
     //TODO ( Praktikan Nomor Urut 3 )
     // Tambahkan fungsi update yang mengubah data Mahasiswa yang dipilih
@@ -55,7 +56,7 @@ class MahasiswaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'nama' => 'string',
-            'nim' => 'string|unique:mahasiswas,nim,' . $id,
+            'nim' => 'string|unique:mahasiswas,nim,' . $id . ',id',
             'jurusan' => 'string',
             'fakultas' => 'string',
         ]);
@@ -65,7 +66,7 @@ class MahasiswaController extends Controller
         }
 
         $mahasiswa->update($request->all());
-        return new MahasiswaResource($mahasiswa);
+        return new MahasiswaResource(true, 'Data berhasil diupdate', $mahasiswa);
     }
     //TODO ( Praktikan Nomor Urut 4 )
     // Tambahkan fungsi destroy yang akan menghapus data Mahasiswa yang dipilih
